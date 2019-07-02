@@ -1,0 +1,109 @@
+\documentclass[t,12pt,numbers,fleqn,usenames,xcolor=dvipsnames]{beamer}
+%\documentclass[t,12pt,numbers,fleqn,handout]{beamer}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{paralist}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{phonetic}
+\usepackage{wasysym}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{url}
+\usetikzlibrary{arrows}
+\usepackage{array}
+\usepackage{pgfpages} 
+\usepackage{multirow} 
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{listings,lstautogobble}
+\lstset{
+	basicstyle=\ttfamily,
+	mathescape
+}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usepackage{graphicx}
+\usepackage{collectbox}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{textcomp}
+\usepackage[show]{ed}
+\usepackage{adjustbox}
+\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.5}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+
+%\usepackage{macros}
+%\usepackage{local}
+%\usepackage{basics}
+
+% To include lagda 
+%\usepackage{latex/agda}
+%\usepackage{ucs}
+%\usepackage[utf8x]{inputenc}
+%\usepackage{autofe}
+%\usepackage{fancyvrb}
+%\DefineVerbatimEnvironment
+%{code}{Verbatim}
+
+
+\lstset{language=lisp,basicstyle=\ttfamily,breaklines=true,showspaces=false,showstringspaces=false,breakatwhitespace=true,texcl=true,escapeinside={\%*}{*)}}
+\tikzstyle{stuff_fill}=[rectangle,draw,fill=black!20,minimum size=1.4em]
+
+
+\usepackage{fancybox}
+
+\mode<presentation>{}
+
+
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize item}[ball]
+\setbeamersize{text margin left = 4mm}
+\setbeamersize{text margin right = 4mm}
+
+%\input{def-beamer}
+
+\title{Diagram Combinators in MMT}
+\author{Florian Rabe and \underline{Yasmine Sharoda}}
+\institute[]{}
+\date{}
+	
+\newcommand\textline[4][t]{%
+	\par\smallskip\noindent\parbox[#1]{.333\textwidth}{\raggedright\texttt{+}#2}%
+	\parbox[#1]{.333\textwidth}{\centering#3}%
+	\parbox[#1]{.333\textwidth}{\raggedleft\texttt{#4}}\par\smallskip%
+}	
+
+\setbeamertemplate{footline}[frame number]
+	
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+
+\end{document}
