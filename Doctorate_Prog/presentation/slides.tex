@@ -52,7 +52,7 @@
 \setlength{\arrayrulewidth}{1mm}
 \setlength{\tabcolsep}{18pt}
 \renewcommand{\arraystretch}{1.5}
-\hypersetup{colorlinks=true,
+\hypersetup{colorlinks=false,
     linkcolor=blue,
     citecolor=blue,
     filecolor=blue,
@@ -136,53 +136,144 @@ Do you find yourself going through \\
 
 \subsection{Agda Example}
 \begin{frame}[fragile]
-\frametitle{Copy-paste}
-%\frametitle{Example: Agda\footnote{code from: \url{https://github.com/JacquesCarette/TheoriesAndDataStructures/}}}
-Define the category of group
-\begin{lstlisting}
-
-\end{lstlisting}
+\frametitle{A Typical Task}
 \begin{columns}
 	\begin{column}{0.45\textwidth}
-		
-		Agda monoid, TwoSorted, Pointed, AbelianGroup
-%source: https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/TwoSorted.lagda \\
-%source: https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/Pointed.lagda \\
-%source: https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/AbelianGroup.lagda
+		\begin{lstlisting}
+theory Foo { 
+  U : type 
+  s1 : U 
+  s2 : U $\rightarrow$ U $\rightarrow$ U
+}
+		\end{lstlisting}
+		\begin{lstlisting}
+theory FooHom{
+  f1 , f2 : Foo 
+  h : f1.U $\rightarrow$ f2.U 
+  pres-s1 : ... 
+  pres-s2 : ... 
+}
+		\end{lstlisting}
 	\end{column}
 	\begin{column}{0.45\textwidth}
-       Agda Involutive
-       %\footnote{source: \url{https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/InvolutiveAlgebra.lagda}}		
+	 	\begin{lstlisting}
+theory Bar {
+  U : type 
+  s1 : U 
+  s2 : U $\rightarrow$ U 
+}
+	 	\end{lstlisting}
+\pause
+		\begin{lstlisting}
+theory BarHom { 
+  b1, b2 : Bar 
+  h : b1.U $\rightarrow$ b2.U 
+  pres-s1 : $\cdots$
+  pres-s2 : $\cdots$
+}
+		\end{lstlisting}
 	\end{column}
 \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{A Typical Task}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+	\begin{lstlisting}
+theory Foo { 
+  U : type 
+  s1 : U 
+  s2 : U $\rightarrow$ U $\rightarrow$ U
+} generates Hom 
+	\end{lstlisting}
+\end{column}
+\begin{column}{0.45\textwidth}
+	\begin{lstlisting}
+theory Bar {
+  U : type 
+  s1 : U 
+  s2 : U $\rightarrow$ U 
+} generates Hom 
+	\end{lstlisting}
+\end{column}
+\end{columns}
+\end{frame}
+%\frametitle{Example: Agda\footnote{code from: 
+%\url{https://github.com/JacquesCarette/TheoriesAndDataStructures/}}}
+%Define the category of group
+%\begin{lstlisting}
+
+%\end{lstlisting}
+%\begin{columns}
+%	\begin{column}{0.45\textwidth}
+		
+%		Agda monoid, TwoSorted, Pointed, AbelianGroup
+%source: 
+%https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/TwoSorted.lagda
+% \\
+%source: 
+%https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/Pointed.lagda
+% \\
+%source: 
+%https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/AbelianGroup.lagda
+%	\end{column}
+%	\begin{column}{0.45\textwidth}
+%       Agda Involutive
+       %\footnote{source: 
+       %\url{https://github.com/JacquesCarette/TheoriesAndDataStructures/blob/master/Structures/InvolutiveAlgebra.lagda}}
+       %		
+%	\end{column}
+%\end{columns}
+
+
 \begin{frame}
-\frametitle{Example: Agda \footnote{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}
+\frametitle{Real Example: Agda Library
+\footnote{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}
 Excerpts from the agda standard library (Semigroup and Monoid) 
 \end{frame}
 
-\subsection{Isabelle Example}
+\subsection{Real Example: Isabelle Library}
 \begin{frame}
 \frametitle{Example: Isabelle \footnote{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}
 Show example from the Isabelle library (take it from the proposal)
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{What if some of this can be generated?}
-\begin{lstlisting}
-theory monoid = {....} generates Hom 
-theory group = {...} generate Hom 
-\end{lstlisting}
-Use it to define category of monoids 
-\begin{lstlisting}
-AbelianGroupCat $\circ$ $\ell$ = record 
-  { Obj = AbelianGroup $\circ$ $\ell$ ; 
-     _$\Rightarrow$_ = Hom
-     $\cdots$
-  }
-\end{lstlisting}
-This is what I am trying to do in my thesis 
+\subsection{Other Structures}
+\begin{frame}
+\frametitle{Other Structures?}
+\vspace{0.15cm}
+{\scriptsize
+	Signature, Sub-algebra, Product-algebra, Projection of product algebra, Congruence-relation on 
+	an algebra, Quotient algebra, Record definition of a theory, Homomorphism, 
+	Homomorphism-equality, Composition of morphisms, Kernel of Homomorphism, Isomorphism, 
+	Endomorphism, Automorphism, Closed term language, Open term language, Staged terms, 
+	Structural induction, Evaluation function for terms, Simplification of terms, Rewrite rules, 
+	Sub-terms of a term language, Equivalence of terms, Parse trees, Homomorphism between 
+	terms and trees. 
+}
+
+\vspace{0.3cm}
+\pause
+\begin{tikzpicture}
+\draw (1, 1) node [stuff_fill] {Automatically Generate Useful Constructions};
+\end{tikzpicture}
+\
+\end{frame}
+
+\begin{frame}
+\frametitle{Why is that Useful?}
+Avoid Boilerplate 
+
+boring, error-prone, counter productive and forgets the 
+	mathematical structure
+\end{frame}
+
+\begin{frame}
+No title, I want to show here a flow chart of three steps 
+
+Start at an algebraic theory $\rightarrow$ Generate Useful Construction $\rightarrow$ Generate 
+Code in different formal languages 
 \end{frame}
 
 \section{Algebraic Theories}
@@ -200,10 +291,19 @@ This is what I am trying to do in my thesis
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Monoid Theory}
-Show the picture 
-Abstract over theory presentation s
+\only<1>{
+	\begin{figure}
+		\includegraphics[scale=0.38]{monoid_highlighted.pdf}
+	\end{figure}
+}
+\only<2>{
+	\begin{tikzpicture}
+	\draw (0, 0) node[inner sep=0] {\includegraphics[scale=0.38]{monoid_highlighted.pdf}};
+	\draw (0.5, 1) node [stuff_fill] {Abstract Over Details of Theory Presentations};
+	\end{tikzpicture}
+}
 \end{frame}
 
 \section{Research Objectives}
@@ -224,7 +324,8 @@ Abstract over theory presentation s
 
 \section{Approach}
 \begin{frame}
-\frametitle{Use MMT for abstraction}
+\frametitle{Abstraction: Use DDL}
+
 \end{frame}
 
 \begin{frame}
