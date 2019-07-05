@@ -323,13 +323,33 @@ Code in different formal languages
 \end{frame}
 
 \section{Approach}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Abstraction: Use DDL}
-
+	\begin{center}
+\smartdiagramset{
+			uniform color list=gray!60!black for 3 items,
+			back arrow disabled=true,
+			additions={
+				additional item offset=0.85cm,
+				additional item border color=red,
+				additional connections disabled=false,
+				additional arrow color=red,
+				additional arrow tip=stealth,
+				additional arrow line width=1pt,
+				additional arrow style=]-latex’,
+			}
+}
+\smartdiagramadd[flow diagram:horizontal]{%
+PGF,Ti\textit{k}Z,Smartdiagram%
+}{%
+below of module1/Low Level, below of module3/High level%
+}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Use Feature Model to study formal systems}
+
 \end{frame}
 
 \begin{frame}
