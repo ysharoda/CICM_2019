@@ -1,95 +1,6 @@
 \documentclass[t,12pt,numbers,fleqn,usenames,xcolor=dvipsnames]{beamer}
-%\documentclass[t,12pt,numbers,fleqn,handout]{beamer}
-% The theme: https://github.com/kailashbuki/beamerthemesaarland`
 
-%\usetheme[
-%background=saarland,
-%logo=uds
-%]{saarland}
-%\graphicspath{{images/}}
-
-
-\usepackage{amsmath}
-\usepackage{mathtools}
-\usepackage{amsfonts}
-\usepackage{paralist}
-\usepackage{latexsym}
-\usepackage{amssymb}
-\usepackage{stmaryrd}
-\usepackage{phonetic}
-\usepackage{wasysym}
-\usepackage{pgf}
-\usepackage{tikz}
-\usepackage{url}
-\usetikzlibrary{arrows}
-\usepackage{array}
-\usepackage{pgfpages} 
-\usepackage{multirow} 
-\usepackage{graphicx}
-\usepackage{color}
-\usepackage{listings,lstautogobble}
-\lstset{
-	basicstyle=\ttfamily,
-	mathescape
-}
-\usepackage{hyperref}
-\usepackage{verbatim}
-\usepackage{fancyvrb}
-\usepackage{tabularx}
-\usepackage{tikz}
-\usepackage{tikz-cd}
-\usetikzlibrary{cd}
-\usepackage{graphicx}
-\usepackage{collectbox}
-\usepackage{tabularx}
-\usepackage{wrapfig}
-\usepackage{lscape}
-\usepackage{textcomp}
-
-\usepackage[show]{ed}
-\usepackage{smartdiagram}
-\usesmartdiagramlibrary{additions}
-\usepackage{adjustbox}
-\setlength{\arrayrulewidth}{1mm}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.5}
-\hypersetup{colorlinks=false,
-    linkcolor=blue,
-    citecolor=blue,
-    filecolor=blue,
-    urlcolor=blue,
-    unicode=false}
-
-%\usepackage{macros}
-%\usepackage{local}
-%\usepackage{basics}
-
-% To include lagda 
-
-\usepackage{macros/agda}
-\usepackage{catchfilebetweentags}
-%\usepackage{ucs}
-%\usepackage[utf8x]{inputenc}
-%\usepackage{autofe}
-%\usepackage{fancyvrb}
-%\DefineVerbatimEnvironment
-%{code}{Verbatim}
-
-
-\lstset{language=lisp,basicstyle=\ttfamily,breaklines=true,showspaces=false,showstringspaces=false,breakatwhitespace=true,texcl=true,escapeinside={\%*}{*)}}
-\tikzstyle{stuff_fill}=[rectangle,draw,fill=black!20,minimum size=1.4em]
-
-
-\usepackage{fancybox}
-
-\mode<presentation>{}
-
-
-\usetheme{default}
-\setbeamertemplate{navigation symbols}{} 
-\setbeamertemplate{itemize item}[ball]
-\setbeamersize{text margin left = 4mm}
-\setbeamersize{text margin right = 4mm}
+\input{preamble}
 
 %\input{def-beamer}
 
@@ -104,7 +15,8 @@
 	\parbox[#1]{.333\textwidth}{\raggedleft\texttt{#4}}\par\smallskip%
 }	
 \newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
-\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}{%
+	\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
 	
 \begin{document}
 
@@ -232,10 +144,19 @@ theory Bar {
 %\end{columns}
 
 
+\begin{comment}[fragile]
+\frametitle{Real Example: Agda Library}
+\ExecuteMetaData[agdacode/Morphism.tex]{groupHom}
+\end{comment}
+
+
+
 \begin{frame}
 \frametitle{Real Example: Agda Library
+
 \footnote{\tiny{ source: 
 \url{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}}}
+
 \begin{columns}
 	\begin{column}{0.45\textwidth}
 \begin{figure}
@@ -256,7 +177,7 @@ theory Bar {
 \end{columns}
 \end{frame}
 
-\subsection{Real Example: Isabelle Library}
+subsection{Real Example: Isabelle Library}
 \begin{frame}[fragile]
 \frametitle{Example: Isabelle 
 \footnote{\tiny{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
@@ -281,6 +202,19 @@ theory Bar {
 		\end{figure}
 	\end{column}
 \end{columns}
+
+\frametitle{Example: Isabelle \footnote{\tiny{source: 
+\url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
+\scriptsize
+\begin{lstlisting}
+DirProd :: "_ $\Rightarrow$ _ $\Rightarrow$ ('a $\times$ 'b) monoid" (infixr "$\times \times$" 80) 
+where "G $\times \times$ H =
+$\llparenthesis$ carrier = carrier G $\times$ carrier H,
+mult = ($\lambda$(g, h) (g', h'). (g $\otimes\textsubscript{G}$ g', h $\otimes\textsubscript{H}$ h')),
+one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
+\end{lstlisting}
+\lstinputlisting[language=Isar, firstline=711, lastline=713]{isabelle_example/Group.thy}
+\lstinputlisting[language=Isar, firstline=723, lastline=725]{isabelle_example/Group.thy}
 \end{frame}
 
 \subsection{Other Structures}
@@ -338,7 +272,7 @@ Avoid Boilerplate
 \begin{frame}[fragile]
 \frametitle{Algebraic Theories}
 \begin{itemize}
-\item Consists of: 	
+\item Syntax of a theory consists of: 	
 	   \begin{itemize}
 	   	\item sorts
 	   	\item typed symbols
@@ -429,12 +363,25 @@ Manipulating OmDoc terms
 \begin{tikzpicture}
 \draw (0,0) node [stuff_fill] {Result: Feature Model};
 \end{tikzpicture}
-
-\textit{building blocks being concepts and features}
 \end{frame}
 
 \begin{frame}[fragile]{Feature Model}
-show small example 
+Consists of 
+\begin{itemize}
+	\item Feature Diagram: Hierarchies and Dependencies
+	\begin{itemize}
+		\item Mandatory, Alternative or Optional 
+	\end{itemize}
+	\item Feature Definition
+	\item Composition Rules
+	\begin{itemize}
+		\item Valid/Invalid Feature Combinations 
+	\end{itemize}
+	\item Rationale
+	\begin{itemize}
+		\item Reasons for choosing / not choosing a feature
+	\end{itemize} 
+\end{itemize}
 \end{frame}
 
 \section{Evaluation}

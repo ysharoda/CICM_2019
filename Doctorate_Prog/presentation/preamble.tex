@@ -1,0 +1,142 @@
+%\documentclass[t,12pt,numbers,fleqn,handout]{beamer}
+% The theme: https://github.com/kailashbuki/beamerthemesaarland`
+
+%\usetheme[
+%background=saarland,
+%logo=uds
+%]{saarland}
+%\graphicspath{{images/}}
+
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{paralist}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{phonetic}
+\usepackage{wasysym}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{url}
+\usetikzlibrary{arrows}
+\usepackage{array}
+\usepackage{pgfpages} 
+\usepackage{multirow} 
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{listings,lstautogobble}
+\lstset{
+	basicstyle=\ttfamily,
+	mathescape
+}
+\lstdefinelanguage{Isar}%
+{morekeywords={
+		_first,theory,end,types,datatype,consts,defs,primrec,
+		syntax,translations,apply, lemma,theorem,corollary,
+		done,sorry,goal,proof,fixed variables,_last,definition,locale},
+	sensitive=true,
+	morecomment=[l]{-- },
+	literate=
+	{\\<not>}{{$¬$}}1 {\\<times>}{{$×$}}1                 
+	{\\<Rightarrow>}{{$\Rightarrow$}}1%
+	{\\<equiv>}{{$\equiv$}}1 {~=}{{$\not=$}}1                         
+	{\\<rightleftharpoons>}
+	{{$\rightleftharpoons$}}1
+	{\\<exists>}{{$\exists$}}1 
+	{\\<parallel>}{{$\parallel$}}1 
+	{\\<Longrightarrow>}
+	{{$\Longrightarrow$}}1
+	{\\<lbrakk>}{{$\lsemantics$}}1
+	{\\<rbrakk>}{{$\rsemantics$}}1
+	{\\<longrightarrow>}
+	{{$\longrightarrow$}}1
+	{\\<and>}{{$\land$}}1
+	{\\<or>}{{$\lor$}}1
+	{\\<bigwedge>}{{$\bigwedge$}}1
+	{\\<lbrakk>}{{$\llbracket$}}1
+	{\\<rbrakk>}{{$\rrbracket$}}1
+	{\\<subseteq>}{{$\subseteq$}}1
+	{\\<one>}{{$1$}}1	
+	{\\<in>}{{$\in$}}1
+	{\\<times>}{{$\times$}}1
+	{\\<lparr>}{{$\llparenthesis$}}1
+	{\\<rparr>}{{$\rrparenthesis$}}1
+	{\\<lambda>}{{$\lambda$}}1
+	{\\<^bsub>}{{$_$}}0
+	{\\<^esub>}{{$_$}}0
+	{\\<>}{{$\llparenthesis$}}1
+	{\\<otimes>}{{$\otimes$}}1
+	{ü}{"u}1 {ä}{"a}1 {ö}{"o}1 
+	{Ü}{"U}1 {Ä}{"A}1 {Ö}{"O}1 {ß}{{ss}}1
+}[keywords,comments,strings]%
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usepackage{graphicx}
+\usepackage{collectbox}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{textcomp}
+
+\usepackage[show]{ed}
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions}
+\usepackage{adjustbox}
+\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.5}
+\hypersetup{colorlinks=false,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+
+%\usepackage{macros}
+%\usepackage{local}
+%\usepackage{basics}
+
+% To include lagda 
+
+\usepackage{adjustbox}
+
+\usepackage{agda-stdlib/latex/agda}
+
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage[greek,english]{babel}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage{autofe}
+\DeclareUnicodeCharacter{8988}{\ensuremath{\ulcorner}}
+\DeclareUnicodeCharacter{8989}{\ensuremath{\urcorner}}
+\DeclareUnicodeCharacter{8803}{\ensuremath{\overline{\equiv}}}
+
+
+\usepackage{catchfilebetweentags}
+%\usepackage{fancyvrb}
+%\DefineVerbatimEnvironment
+%{code}{Verbatim}
+
+
+\lstset{language=lisp,basicstyle=\ttfamily,breaklines=true,showspaces=false,showstringspaces=false,breakatwhitespace=true,texcl=true,escapeinside={\%*}{*)}}
+\tikzstyle{stuff_fill}=[rectangle,draw,fill=black!20,minimum size=1.4em]
+
+
+\usepackage{fancybox}
+
+\mode<presentation>{}
+
+
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize item}[ball]
+\setbeamersize{text margin left = 4mm}
+\setbeamersize{text margin right = 4mm}
