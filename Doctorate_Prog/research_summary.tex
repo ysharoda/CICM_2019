@@ -1,5 +1,6 @@
-\documentclass[orivec]{llncs}
+\documentclass[a4paper]{article}
 
+\usepackage{onecolceurws}
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{amsfonts}
@@ -23,6 +24,7 @@
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usetikzlibrary{cd}
+\usepackage{pdfpages}
 \usepackage{fancyvrb}
 \usepackage{basics}
 \addtolength{\intextsep}{-5mm}
@@ -54,27 +56,31 @@
 
 
 \begin{document}
-\title{Leveraging Information Contained \\ in Theory Presentations}
-\author{Yasmine Sharoda \\ \email{sharodym@mcmaster.ca} \\[0.3cm] Supervisors: Jacques 
-Carette and William Farmer}
-\institute{Computing and Software, McMaster University, Canada} 
-\maketitle
 
+\title{Leveraging Information Contained \\ in Theory Presentations}
+\author{Yasmine Sharoda \\ sharodym@mcmaster.ca \\[0.3cm] Supervisors: Jacques 
+	Carette and William Farmer}
+\institution{Computing and Software, McMaster University, Canada} 
+\maketitle
 Building large libraries of mathematics is an active area of research in Mathematical Knowledge 
-Management (MKM). A library structure information using some unit of knowledge. Whether that unit is 
-called theory, specification, module, locale or something else, we can abstractly see it as a way for 
+Management (MKM). A library structures information using some unit of knowledge. Whether that unit 
+is called a theory, specification, module, locale or something else, we can abstractly see it as a way for 
 encapsulating knowledge. 
-We want to study the units of encapsulating information in formal systems, abstracting over the 
+We want to study the units of encapsulated information in formal systems, abstracting over the 
 language details. Our abstraction consider units in which one can define sorts, typed symbols 
-(optionally providing their definitions) and axioms stating the properties of the defined symbols. We 
-use the term theory presentation to refer to this abstract unit. This abstraction has been well-studied 
-in theory under the name universal algebra \cite{wechler1992universal}. Our scope is to identify what 
-knowledge can be automatically generated from theory presentations. We want to provide a library of 
+(optionally providing their definitions) and axioms stating the properties of the defined sorts and 
+symbols. We use the term \textit{theory presentation} to refer to this abstract unit. The theory of this 
+abstraction has been well-studied under the name universal algebra \cite{wechler1992universal}. Our 
+goal is to identify what knowledge can be automatically generated from theory presentations. We want 
+to provide a library of 
 algorithms to generate this knowledge. This way, we provide tool support for library development and 
-formalization tasks. We remove some of the boilerplate associated with defining constructs that can 
+formalization tasks by removing some of the boilerplate associated with defining constructs that can 
 be automatically generated. Not only does generating these new pieces save time and effort for the 
 developer, but, more importantly, leverages the information contained in the theory graph by 
-establishing new connections between the theories. We describe our contributions as 
+establishing new connections between the theories. A \textit{theory graph} is a collection of theories 
+and 
+theory morphisms. We want to be able to generate the new pieces of knowledge and the morphisms 
+connecting them to the graph. We describe our contributions as 
 \begin{itemize}
 	\item Evaluating the status of current popular libraries of mathematics, in terms of modularity and 
 	reusability.
@@ -83,7 +89,7 @@ establishing new connections between the theories. We describe our contributions
 	\item Compiling a list of constructions that can be automatically generated from the syntax of a 
 	theory presentation. 
 	\item Building a library of generic algorithms for computing these constructions, given a theory 
-	written in DDL, which abstracts over the presentation language. At this point, we only consider 
+	written in an abstract description language. At this point, we only consider 
 	theory presentations in their most abstract format as a collection of sorts, function symbols and 
 	axioms written in some formal language.  
 	\item Implementing generators that can produce these constructions for a specific theory in a 
@@ -91,19 +97,15 @@ establishing new connections between the theories. We describe our contributions
 	systems.   
 \end{itemize}
 
-\paragraph{} 
-We now list some of the constructions that can be generated from theory presentations. Some of 
-these constructions are inspired by universal algebra, others are more related to programming 
-disciplines, like meta-programming. 
-\begin{lstlisting}
+We now list some of the constructions that can be generated from theory presentations: \\ 
 signatures, sub-algebras, product-algebras, projection, congruence, 
 quotient algebra, record definition, homomorphism, homomorphism- 
 equality, isomorphism, endomorphism, automorphism, composition-of-
 morphisms, closed term language, open term language, staged-term-
 language, structural induction principle, evaluation functions, 
-rewrite rules, equivalence of terms, and parse trees. 
-\end{lstlisting}
-
+rewrite rules, equivalence of terms, and parse trees. \\
+Some of these constructions are inspired by universal algebra, others are more related to programming 
+disciplines, like meta-programming. 
 
 \paragraph{Approach}
 We are interested in syntactically manipulating theory presentations, in their most abstract form. To 
@@ -111,18 +113,21 @@ achieve a high level of abstraction, we use \mmt \cite{kohlhase2010towards} as a
 language (DDL). 
 \mmt is a foundation independent framework for managing mathematical knowledge. Knowledge is 
 structured as a theory graph. 
-Being foundation independent, it avoids the commitment to any specific logical framework and allows 
-the translation between them. This makes it appealing to our research work as it enables us to abstract 
+Being foundation independent, it avoids the commitment to any specific logical foundation and allows 
+the translation between the different ones. This makes it appealing to our research work as it enables 
+us to abstract 
 over language details, explore the minimal logic in which the different pieces of knowledge can be 
 generated, and explore whether these pieces can be formalized in other logics. 
 
 After generating the different pieces of knowledge, we want to be able to translate them into different 
-formal systems. Consider systems with very different foundations, like Isabelle/HOL and Agda. The first 
-is based on HOL, while the second is based on dependent type theory. They do have different 
-representations of theories. Yet, the information contained is the same. For example, a \verb|Monoid| 
+formal systems. Considering systems with very different foundations, like Isabelle/HOL and Agda. 
+The first 
+is based on HOL, while the second is based on dependent type theory. They have different 
+representations of theories, yet the information contained in them is the same. For example, a 
+\verb|Monoid| 
 theory consists of a sort, a point, a binary operation and three axioms. These pieces do not change 
 based on the logic, but the way they are formalized does. We are interested in automating the 
-generation of theories in different formal systems. For this, we aim to develop pa feature model 
+generation of theories in different formal systems. For this, we aim to develop a feature model 
 exploring the similarities and differences between the different systems. This feature model will be used 
 to design generators from our abstract model to the different systems. This way, the 
 information is generated once, and translated automatically to different representations. 
@@ -134,22 +139,24 @@ using the combinators introduced in \cite{carette2012theory} and structured as a
 able to use the library, we translate it into \mmt. The combinators used to build the library are 
 interpreted as diagram level combinators \cite{rabediagram}. Theories in the library have different 
 foundations. Some theories are based on simple 
-logics, like equational logic, but others are based on more descriptive ones, as dependent type theory. 
+logics, like equational logic, but others are based on more expressive\footnote{By expressivity we 
+mean practical expressivity, in terms that information is expressed in a practical and convenient way} 
+ones, like dependent type theory. 
 
 \paragraph{} In conclusion, we aim at supporting the development of libraries by generating some 
 related construction that can be made available by syntactic manipulation of theory presentations. As 
 an outcome of our work, a user should be able to write something like 
 \begin{lstlisting}
 BooleanAlgebra := Theory {
-U : type;
-* : (U, U) -> U;
-+ : (U, U) -> U;
---> : (U, U) -> U;
-0 : U;
-1 : U;
-compl : U -> U;
-axiom unipotent_-->_1 : forall x : U. (x --> x) = (1);
-....
+  U : type;
+  * : (U, U) -> U;
+  + : (U, U) -> U;
+  --> : (U, U) -> U;
+  0 : U;
+  1 : U;
+  compl : U -> U;
+  axiom unipotent_-->_1 : forall x : U. (x --> x) = (1);
+  ....
 }
 generate (termLang, simplify)
 \end{lstlisting}
@@ -157,6 +164,8 @@ and then ask the system to evaluate \verb|simplify ((x * y) + 1)| without any ex
 term language or simplification rules. 
 
 \bibliographystyle{splncs04}
-\bibliography{proposal_3}
+\bibliography{proposal}
+
+%\includepdf[pages=-]{yasmine.pdf}
 
 \end{document}
