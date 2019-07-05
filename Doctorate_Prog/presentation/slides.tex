@@ -65,7 +65,9 @@
 %\usepackage{basics}
 
 % To include lagda 
-%\usepackage{latex/agda}
+
+\usepackage{macros/agda}
+\usepackage{catchfilebetweentags}
 %\usepackage{ucs}
 %\usepackage[utf8x]{inputenc}
 %\usepackage{autofe}
@@ -124,7 +126,7 @@ when you are doing formalizations or building libraries?};
 \end{comment}
 
 \section{Motivation}
-\begin{frame}[fragile]
+\begin{comment}[fragile]
 \begin{tikzpicture}[overlay, remember picture]
 \node[anchor=center] at (current page.center) {
 	\begin{beamercolorbox}[center]{title}
@@ -132,12 +134,11 @@ Do you find yourself going through \\
 \textbf{copy-paste-modify} flow?
 	\end{beamercolorbox}};
 \end{tikzpicture}
-
-\end{frame}
+\end{comment}
 
 \subsection{Agda Example}
 \begin{frame}[fragile]
-\frametitle{A Typical Task}
+\frametitle{Defining Homomorphism}
 \begin{columns}
 	\begin{column}{0.45\textwidth}
 		\lstset{emph={} ,emphstyle=\fbox}
@@ -145,9 +146,10 @@ Do you find yourself going through \\
 theory Foo { 
   U : type 
   s1 : U 
-  $\hilight{s2 : U -> U -> U}$
+  s2 : U $\to$ U $\to$ U
 }
 		\end{lstlisting}
+\pause		
 		\begin{lstlisting}
 theory FooHom{
   f1 , f2 : Foo 
@@ -158,6 +160,7 @@ theory FooHom{
 		\end{lstlisting}
 	\end{column}
 	\begin{column}{0.45\textwidth}
+\pause		
 	 	\begin{lstlisting}
 theory Bar {
   U : type 
@@ -179,14 +182,14 @@ theory BarHom {
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{A Typical Task}
+\frametitle{Defining Homomorphism}
 \begin{columns}
 \begin{column}{0.45\textwidth}
 	\begin{lstlisting}
 theory Foo { 
   U : type 
   s1 : U 
-  s2 : U $\rightarrow$ U $\rightarrow$ U
+  s2 : U $\to$ U $\to$ U
 } generates Hom 
 	\end{lstlisting}
 \end{column}
@@ -232,13 +235,50 @@ theory Bar {
 \begin{frame}
 \frametitle{Real Example: Agda Library
 \footnote{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}
-Excerpts from the agda standard library (Semigroup and Monoid) 
+\begin{columns}
+	\begin{column}{0.45\textwidth}
+\begin{figure}
+\includegraphics[scale=0.3]{agda_example/HomDef.png}
+\end{figure}
+\begin{figure}
+	\includegraphics[scale=0.3]{agda_example/MonMorph.png}
+\end{figure}
+	\end{column}
+	\begin{column}{0.45\textwidth}
+	\begin{figure}
+		\includegraphics[scale=0.3]{agda_example/ICMonMorph.png}
+	\end{figure}
+	\begin{figure}
+		\includegraphics[scale=0.3]{agda_example/groupMorph.png}
+	\end{figure}
+\end{column}
+\end{columns}
 \end{frame}
 
 \subsection{Real Example: Isabelle Library}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Example: Isabelle \footnote{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}
-Show example from the Isabelle library (take it from the proposal)
+\begin{columns}
+	\begin{column}{0.45\textwidth}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/submonoid.png}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/subgroup.png}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.45\textwidth}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/prod.png}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/prod_mon.png}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/prod_group.png}
+		\end{figure}
+	\end{column}
+\end{columns}
 \end{frame}
 
 \subsection{Other Structures}
@@ -266,12 +306,14 @@ Show example from the Isabelle library (take it from the proposal)
 \begin{frame}
 \frametitle{Why is that Useful?}
 Avoid Boilerplate 
-
-boring, error-prone, counter productive and forgets the 
-	mathematical structure
+\begin{itemize}
+	\item Distracts user from original task 
+	\item Error-prone and not reusable 
+	\item Does not communicate information about the structure 
+\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{comment}[fragile]
 	\begin{center}
 	\smartdiagramset{
 		uniform color list=white!60!black for 3 items, 
@@ -288,20 +330,20 @@ boring, error-prone, counter productive and forgets the
 		below of module1/Abstraction, below of module3/Specialization
 	}
 	\end{center}
-\end{frame}
+\end{comment}
 
 \section{Algebraic Theories}
 \begin{frame}[fragile]
 \frametitle{Algebraic Theories}
 \begin{itemize}
-	\item The examples we have seen all corresponds to algebraic theories. What is an algebraic theory?
-	\item Abstractly, it has
+\item Consists of: 	
 	   \begin{itemize}
 	   	\item sorts
-	   	\item typed symbols: constants or functions 
+	   	\item typed symbols
 	   	\item axioms 
 	   \end{itemize}
-   \item What do formal systems offer us? Show the slide about Monoid representations 
+   \pause
+   \item How are they presented in formal systems?
 \end{itemize}
 \end{frame}
 
@@ -309,7 +351,7 @@ boring, error-prone, counter productive and forgets the
 \frametitle{Monoid Theory}
 \only<1>{
 	\begin{figure}
-		\includegraphics[scale=0.38]{monoid_highlighted.pdf}
+		\includegraphics[scale=0.4]{monoid_highlighted.pdf}
 	\end{figure}
 }
 \only<2>{
@@ -329,7 +371,6 @@ boring, error-prone, counter productive and forgets the
 	\item Translate the generated structures to various languages, 
 	  \begin{itemize}
 	  	\item Different Syntax
-	  	\item Different Design Decisions
 	  	\item Different Foundation 
 	  	\item Example: Isabelle/HOL and Agda 
 	  \end{itemize}
@@ -338,30 +379,94 @@ boring, error-prone, counter productive and forgets the
 
 \section{Approach}
 \begin{frame}[fragile]
-\frametitle{Abstraction: Use DDL}
-
+\frametitle{Abstraction: Use MMT}
+We use MMT as a framework to abstract over syntax of theory presentations 
+\begin{itemize}
+	\item Platform Independent 
+	\item Simple Module System
+	\item Example: 
+\scriptsize	
+	\begin{lstlisting}
+theory Magma : FOL = 
+  U : type
+  op : U $\to$ U $\to$ U # 1 $\circ$ 2
+theoy AdditiveMagma : FOL = 
+  U : type
+  + : U $\to$ U $\to$ U 
+view additive : Magma $\to$ AdditiveMagma = 
+   U := U 
+   op := +   
+	\end{lstlisting}
+\end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Use Feature Model to study formal systems}
-feature model 
+\begin{comment}[fragile]{Generating Structures}
+Manipulating OmDoc terms 
+\end{comment}
+
+\begin{frame}[fragile]{Translating Definitions: Domain Analysis}
+\begin{itemize}
+	\item Domain Scoping 
+\scriptsize{	
+	\begin{tabular}{ p{1cm} p{1cm} p{1cm} p{1cm}}
+		MathScheme & MMT & Agda & Lean \\ [1ex]
+		Coq & Haskell &  Isabelle & Idris 
+	\end{tabular}}
+\normalsize
+	\item Data Collection 
+	\begin{itemize}
+		\item Foundations 
+		\item Module System 
+		\item Supported Features 
+	\end{itemize}
+	\item Data Analysis 
+	\begin{itemize}
+		\item Commonlities, Differences and Dependencies 
+	\end{itemize}
+\end{itemize}
+\begin{tikzpicture}
+\draw (0,0) node [stuff_fill] {Result: Feature Model};
+\end{tikzpicture}
+
+\textit{building blocks being concepts and features}
 \end{frame}
 
-\begin{frame}
-\frametitle{Use code generators to generate constructions in a specfic language}
+\begin{frame}[fragile]{Feature Model}
+show small example 
 \end{frame}
 
 \section{Evaluation}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Evaluation: MathScheme Library}
-Modularly constructed with 4 combinators 
-capture the mathematical structure well enough 
+\scriptsize	
+\begin{lstlisting}
+theory Carrier := Empty extended_by {U : type}
+theory Magma := Carrier extended_by {_$\circ$_ : U $\to$ U $\to$ U}
+theory Pointed := Carrier extended_by {e : U}
+theory PointedMagma := Combine Pointed {} Magma {}
+theory AddtivieMagma := Magma rename {$\circ$ := +}
+view Flip : Magma -> Magma := 
+  U = U 
+  * = [a , b : U] b * a 
+LeftUnital := PointedMagma extended_by {left_unital : ... }
+RightUnital := Mixin LeftUnital {} Flip {}     
+\end{lstlisting}
+\begin{tikzcd}
+	Carrier \arrow[r,hook] \arrow[d,hook] \arrow[rd,hook]& Pointed \arrow[d,hook] & \\
+	Magma \arrow[d,mapsto] \arrow[r,hook] & PointedMagma \arrow[d,hook] \arrow[dr,hook]& \\
+	AdditiveMagma & LeftUnital \arrow{r}{\text{Flip}} & RightUnital \\
+\end{tikzcd}	
+
+\textit{Talk about the combinators, structure is a theory graph and tiny theories}
 \end{frame}
 
 \section{Conclusion}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Conclusion}
-A toolbox for building libraries that makes formalization tasks easier and leverages the information of the library 
+\begin{itemize}
+	\item A declarative language to build highly structured libraries with less human effort 
+	\item A toolbox for making formalization tasks much easier 
+\end{itemize}
 \end{frame}
 
 \end{document}
