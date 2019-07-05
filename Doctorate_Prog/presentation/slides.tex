@@ -273,25 +273,25 @@ boring, error-prone, counter productive and forgets the
 
 \begin{frame}[fragile]
 	\begin{center}
-\smartdiagramset{
-   uniform color list=white!60!black for 3 items, 
-   back arrow disabled=true, 
-   text width=2cm,
-   additions={
-      additional item offset=0.85cm,
-      additional item border color=red,
+	\smartdiagramset{
+		uniform color list=white!60!black for 3 items, 
+		back arrow disabled=true, 
+		text width=2cm,
+		additions={
+			additional item offset=0.85cm,
+			additional item border color=red,
+		}
 	}
-}
-\smartdiagramadd[flow diagram:horizontal]{%
-Abstract, Compute, Generate %
-}{%
-below of module1/Abstraction, below of module3/Specialization
-}
+	\smartdiagramadd[flow diagram:horizontal]{%
+		Abstract, Compute, Generate %
+	}{%
+		below of module1/Abstraction, below of module3/Specialization
+	}
 	\end{center}
 \end{frame}
 
 \section{Algebraic Theories}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Algebraic Theories}
 \begin{itemize}
 	\item The examples we have seen all corresponds to algebraic theories. What is an algebraic theory?
@@ -339,31 +339,12 @@ below of module1/Abstraction, below of module3/Specialization
 \section{Approach}
 \begin{frame}[fragile]
 \frametitle{Abstraction: Use DDL}
-	\begin{center}
-\smartdiagramset{
-			uniform color list=gray!60!black for 3 items,
-			back arrow disabled=true,
-			additions={
-				additional item offset=0.85cm,
-				additional item border color=red,
-				additional connections disabled=false,
-				additional arrow color=red,
-				additional arrow tip=stealth,
-				additional arrow line width=1pt,
-				additional arrow style=]-latex’,
-			}
-}
-\smartdiagramadd[flow diagram:horizontal]{%
-PGF,Ti\textit{k}Z,Smartdiagram%
-}{%
-below of module1/Low Level, below of module3/High level%
-}
-\end{center}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Use Feature Model to study formal systems}
-
+feature model 
 \end{frame}
 
 \begin{frame}
