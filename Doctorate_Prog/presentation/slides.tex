@@ -153,7 +153,10 @@ theory Bar {
 
 \begin{frame}
 \frametitle{Real Example: Agda Library
-\footnote{\tiny{source: \url{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}}}
+
+\footnote{\tiny{ source: 
+\url{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}}}
+
 \begin{columns}
 	\begin{column}{0.45\textwidth}
 \begin{figure}
@@ -176,7 +179,32 @@ theory Bar {
 
 subsection{Real Example: Isabelle Library}
 \begin{frame}[fragile]
-\frametitle{Example: Isabelle \footnote{\tiny{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
+\frametitle{Example: Isabelle 
+\footnote{\tiny{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
+\begin{columns}
+	\begin{column}{0.45\textwidth}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/submonoid.png}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/subgroup.png}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.45\textwidth}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/prod.png}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/prod_mon.png}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.3]{isabelle_example/prod_group.png}
+		\end{figure}
+	\end{column}
+\end{columns}
+
+\frametitle{Example: Isabelle \footnote{\tiny{source: 
+\url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
 \scriptsize
 \begin{lstlisting}
 DirProd :: "_ $\Rightarrow$ _ $\Rightarrow$ ('a $\times$ 'b) monoid" (infixr "$\times \times$" 80) 
