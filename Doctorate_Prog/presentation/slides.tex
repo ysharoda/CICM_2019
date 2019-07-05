@@ -15,7 +15,8 @@
 	\parbox[#1]{.333\textwidth}{\raggedleft\texttt{#4}}\par\smallskip%
 }	
 \newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
-\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}{%
+	\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
 	
 \begin{document}
 
@@ -152,7 +153,7 @@ theory Bar {
 
 \begin{frame}
 \frametitle{Real Example: Agda Library
-\footnote{source: \url{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}}
+\footnote{\tiny{source: \url{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}}}
 \begin{columns}
 	\begin{column}{0.45\textwidth}
 \begin{figure}
@@ -173,30 +174,19 @@ theory Bar {
 \end{columns}
 \end{frame}
 
-\subsection{Real Example: Isabelle Library}
+subsection{Real Example: Isabelle Library}
 \begin{frame}[fragile]
-\frametitle{Example: Isabelle \footnote{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}
-\begin{flushleft}
-\begin{onlyenv}<1>
-\begin{figure}
-	\includegraphics[scale=0.4]{isabelle_example/submonoid.png}
-\end{figure}
-\begin{figure}
-	\includegraphics[scale=0.4]{isabelle_example/subgroup.png}
-\end{figure}
-\end{onlyenv}
-\begin{onlyenv}<2>
-	\begin{figure}
-	\includegraphics[scale=0.4]{isabelle_example/prod.png}
-\end{figure}
-\begin{figure}
-	\includegraphics[scale=0.4]{isabelle_example/prod_mon.png}
-\end{figure}
-\begin{figure}
-	\includegraphics[scale=0.4]{isabelle_example/prod_group.png}
-\end{figure}
-\end{onlyenv}
-\end{flushleft}
+\frametitle{Example: Isabelle \footnote{\tiny{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
+\scriptsize
+\begin{lstlisting}
+DirProd :: "_ $\Rightarrow$ _ $\Rightarrow$ ('a $\times$ 'b) monoid" (infixr "$\times \times$" 80) 
+where "G $\times \times$ H =
+$\llparenthesis$ carrier = carrier G $\times$ carrier H,
+mult = ($\lambda$(g, h) (g', h'). (g $\otimes\textsubscript{G}$ g', h $\otimes\textsubscript{H}$ h')),
+one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
+\end{lstlisting}
+\lstinputlisting[language=Isar, firstline=711, lastline=713]{isabelle_example/Group.thy}
+\lstinputlisting[language=Isar, firstline=723, lastline=725]{isabelle_example/Group.thy}
 \end{frame}
 
 \subsection{Other Structures}
@@ -254,7 +244,7 @@ Avoid Boilerplate
 \begin{frame}[fragile]
 \frametitle{Algebraic Theories}
 \begin{itemize}
-\item Consists of: 	
+\item Syntax of a theory consists of: 	
 	   \begin{itemize}
 	   	\item sorts
 	   	\item typed symbols
