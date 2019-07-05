@@ -32,8 +32,6 @@
 	basicstyle=\ttfamily,
 	mathescape
 }
-\usepackage{tikz}
-\usepackage{tikz-cd}
 \usepackage{hyperref}
 \usepackage{verbatim}
 \usepackage{fancyvrb}
@@ -47,7 +45,10 @@
 \usepackage{wrapfig}
 \usepackage{lscape}
 \usepackage{textcomp}
+
 \usepackage[show]{ed}
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions}
 \usepackage{adjustbox}
 \setlength{\arrayrulewidth}{1mm}
 \setlength{\tabcolsep}{18pt}
@@ -100,7 +101,7 @@
 	\parbox[#1]{.333\textwidth}{\centering#3}%
 	\parbox[#1]{.333\textwidth}{\raggedleft\texttt{#4}}\par\smallskip%
 }	
-
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
 \setbeamertemplate{footline}[frame number]
 	
 \begin{document}
@@ -139,11 +140,12 @@ Do you find yourself going through \\
 \frametitle{A Typical Task}
 \begin{columns}
 	\begin{column}{0.45\textwidth}
-		\begin{lstlisting}
+		\lstset{emph={} ,emphstyle=\fbox}
+		\begin{lstlisting}[mathescape]
 theory Foo { 
   U : type 
   s1 : U 
-  s2 : U $\rightarrow$ U $\rightarrow$ U
+  $\hilight{s2 : U -> U -> U}$
 }
 		\end{lstlisting}
 		\begin{lstlisting}
@@ -269,11 +271,23 @@ boring, error-prone, counter productive and forgets the
 	mathematical structure
 \end{frame}
 
-\begin{frame}
-No title, I want to show here a flow chart of three steps 
-
-Start at an algebraic theory $\rightarrow$ Generate Useful Construction $\rightarrow$ Generate 
-Code in different formal languages 
+\begin{frame}[fragile]
+	\begin{center}
+\smartdiagramset{
+   uniform color list=white!60!black for 3 items, 
+   back arrow disabled=true, 
+   text width=2cm,
+   additions={
+      additional item offset=0.85cm,
+      additional item border color=red,
+	}
+}
+\smartdiagramadd[flow diagram:horizontal]{%
+Abstract, Compute, Generate %
+}{%
+below of module1/Abstraction, below of module3/Specialization
+}
+	\end{center}
 \end{frame}
 
 \section{Algebraic Theories}
