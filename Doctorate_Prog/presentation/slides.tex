@@ -69,9 +69,9 @@ theory Foo {
 theory FooHom{
   f1 , f2 : Foo 
   h : f1.U $\rightarrow$ f2.U 
-  pres-s1 : h s1 = s2  
-  pres-s2 : h (s1 x y) 
-            = s2 (h x) (h y)
+  pres-s1 : h f1.s1 = f2.s1  
+  pres-s2 : h (f1.s2 x y) 
+            = f2.s2 (h x) (h y)
 }
 		\end{lstlisting}
 	\end{column}
@@ -91,8 +91,8 @@ theory BarHom {
   b1, b2 : Bar 
   h : b1.U $\rightarrow$ b2.U 
   pres-s1 : h s1 = s2  
-  pres-s2 : h (s1 x) 
-            = s2 (h x)
+  pres-s2 : h (b1.s2 x) 
+            = b2.s2 (h x)
 }
 		\end{lstlisting}
 	\end{column}
@@ -263,11 +263,14 @@ one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
 
 \begin{frame}
 \frametitle{Why is that Useful?}
-Avoid Boilerplate 
+\begin{itemize}
+\item Avoid Boilerplate 
 \begin{itemize}
 	\item Distracts user from original task 
 	\item Error-prone and not reusable 
 	\item Does not communicate information about the structure 
+\end{itemize}
+\item Reduce the amount of labor associated with building rich libraries 
 \end{itemize}
 \end{frame}
 
@@ -294,16 +297,29 @@ Avoid Boilerplate
 \begin{frame}[fragile]
 \frametitle{Algebraic Theories}
 \begin{itemize}
-\item Syntax of a theory consists of: 	
+\item well-typed dependent record. It contains	
 	   \begin{itemize}
 	   	\item sorts
 	   	\item typed symbols
 	   	\item axioms 
 	   \end{itemize}
+\begin{figure}[ht]
+	\begin{proofrules}
+		\[ \ \justifies \varnothing \ \wfctx \]
+		\[ \Gamma\ \wfctx \qquad x\notin |\Gamma| 
+		\qquad \Gamma \vdash \sigma : \kappa : \Box \justifies
+		(\Gamma\ ;\ x : \sigma)\ \wfctx \]
+	\end{proofrules}
+%	\caption{Formation rules for contexts}
+	\label{fig:ctx}
+\end{figure}   
    \pause
    \item How are they presented in formal systems?
 \end{itemize}
 \end{frame}
+\begin{comment}
+Third formation rule 
+\end{comment}
 
 \begin{frame}[fragile]
 \frametitle{Monoid Theory}
@@ -324,9 +340,11 @@ Avoid Boilerplate
 \begin{frame}
 \frametitle{Research Objectives}
 \begin{itemize}
-	\item Generate Useful Algebraic Structures 
-	\item Generate them in the most abstract setup 
-	\item Translate the generated structures to various languages, 
+	\item \textcolor{blue}{Abstracting} over representation language 
+	\begin{itemize}
+		\item Generate Useful Algebraic Structures 
+	\end{itemize}
+	\item \textcolor{blue}{Specializing} to different languages
 	  \begin{itemize}
 	  	\item Different Syntax
 	  	\item Different Foundation 
@@ -414,12 +432,47 @@ Consists of
 theory Carrier := Empty extended_by {U : type}
 theory Magma := Carrier extended_by {_$\circ$_ : U $\to$ U $\to$ U}
 theory Pointed := Carrier extended_by {e : U}
+theory AddtivieMagma := Magma rename {$\circ$ := +}
+\end{lstlisting}
+\vfill
+\begin{tikzcd}
+	Carrier \arrow[r,hook] \arrow[d,hook] & Pointed  & \\
+	Magma \arrow[d,mapsto] & &  \\
+	AdditiveMagma &  &  \\
+\end{tikzcd}	
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Evaluation: MathScheme Library}
+\scriptsize	
+\begin{lstlisting}
+theory Carrier := Empty extended_by {U : type}
+theory Magma := Carrier extended_by {_$\circ$_ : U $\to$ U $\to$ U}
+theory Pointed := Carrier extended_by {e : U}
+theory AddtivieMagma := Magma rename {$\circ$ := +}
+theory PointedMagma := Combine Pointed {} Magma {}
+\end{lstlisting}
+\vfill
+\begin{tikzcd}
+	Carrier \arrow[r,hook] \arrow[d,hook] \arrow[rd,hook]& Pointed \arrow[d,hook] & \\
+	Magma \arrow[d,mapsto] \arrow[r,hook] & PointedMagma & \\
+	AdditiveMagma & & \\
+\end{tikzcd}	
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Evaluation: MathScheme Library}
+\scriptsize	
+\begin{lstlisting}
+theory Carrier := Empty extended_by {U : type}
+theory Magma := Carrier extended_by {_$\circ$_ : U $\to$ U $\to$ U}
+theory Pointed := Carrier extended_by {e : U}
 theory PointedMagma := Combine Pointed {} Magma {}
 theory AddtivieMagma := Magma rename {$\circ$ := +}
+LeftUnital := PointedMagma extended_by {left_unital : ... }
 view Flip : Magma -> Magma := 
   U = U 
   * = [a , b : U] b * a 
-LeftUnital := PointedMagma extended_by {left_unital : ... }
 RightUnital := Mixin LeftUnital {} Flip {}     
 \end{lstlisting}
 \begin{tikzcd}
@@ -427,8 +480,6 @@ RightUnital := Mixin LeftUnital {} Flip {}
 	Magma \arrow[d,mapsto] \arrow[r,hook] & PointedMagma \arrow[d,hook] \arrow[dr,hook]& \\
 	AdditiveMagma & LeftUnital \arrow{r}{\text{Flip}} & RightUnital \\
 \end{tikzcd}	
-
-\textit{Talk about the combinators, structure is a theory graph and tiny theories}
 \end{frame}
 
 \section{Conclusion}
