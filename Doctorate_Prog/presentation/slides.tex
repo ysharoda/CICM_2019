@@ -17,6 +17,8 @@
 \newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
 \setbeamertemplate{footline}{%
 	\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
+
+%\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}	
 	
 \begin{document}
 
@@ -53,6 +55,7 @@ Do you find yourself going through \\
 \frametitle{Defining Homomorphism}
 \begin{columns}
 	\begin{column}{0.45\textwidth}
+\scriptsize		
 		\lstset{emph={} ,emphstyle=\fbox}
 		\begin{lstlisting}[mathescape]
 theory Foo { 
@@ -66,13 +69,15 @@ theory Foo {
 theory FooHom{
   f1 , f2 : Foo 
   h : f1.U $\rightarrow$ f2.U 
-  pres-s1 : ... 
-  pres-s2 : ... 
+  pres-s1 : h s1 = s2  
+  pres-s2 : h (s1 x y) 
+            = s2 (h x) (h y)
 }
 		\end{lstlisting}
 	\end{column}
 	\begin{column}{0.45\textwidth}
 \pause		
+\scriptsize
 	 	\begin{lstlisting}
 theory Bar {
   U : type 
@@ -85,8 +90,9 @@ theory Bar {
 theory BarHom { 
   b1, b2 : Bar 
   h : b1.U $\rightarrow$ b2.U 
-  pres-s1 : $\cdots$
-  pres-s2 : $\cdots$
+  pres-s1 : h s1 = s2  
+  pres-s2 : h (s1 x) 
+            = s2 (h x)
 }
 		\end{lstlisting}
 	\end{column}
@@ -96,13 +102,15 @@ theory BarHom {
 \begin{frame}[fragile]
 \frametitle{Defining Homomorphism}
 \begin{columns}
+\scriptsize
 \begin{column}{0.45\textwidth}
+		\lstset{emph={generates Hom} ,emphstyle=\fbox}	
 	\begin{lstlisting}
 theory Foo { 
   U : type 
   s1 : U 
   s2 : U $\to$ U $\to$ U
-} generates Hom 
+} $\hilight{generates Hom}$
 	\end{lstlisting}
 \end{column}
 \begin{column}{0.45\textwidth}
@@ -111,7 +119,7 @@ theory Bar {
   U : type 
   s1 : U 
   s2 : U $\rightarrow$ U 
-} generates Hom 
+} $\hilight{generates Hom}$
 	\end{lstlisting}
 \end{column}
 \end{columns}
@@ -153,7 +161,6 @@ theory Bar {
 
 \begin{frame}
 \frametitle{Real Example: Agda Library
-
 \footnote{\tiny{ source: 
 \url{https://github.com/agda/agda-stdlib/blob/master/src/Algebra/Morphism.agda}}}}
 
@@ -177,8 +184,8 @@ theory Bar {
 \end{columns}
 \end{frame}
 
-subsection{Real Example: Isabelle Library}
-\begin{frame}[fragile]
+\subsection{Real Example: Isabelle Library}
+\begin{comment}[fragile]
 \frametitle{Example: Isabelle 
 \footnote{\tiny{source: \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
 \begin{columns}
@@ -192,7 +199,7 @@ subsection{Real Example: Isabelle Library}
 	\end{column}
 	\begin{column}{0.45\textwidth}
 		\begin{figure}
-			\includegraphics[scale=0.3]{isabelle_example/prod.png}
+			\includegraphics[scale=0.2]{isabelle_example/prod_hr.png}
 		\end{figure}
 		\begin{figure}
 			\includegraphics[scale=0.3]{isabelle_example/prod_mon.png}
@@ -202,7 +209,28 @@ subsection{Real Example: Isabelle Library}
 		\end{figure}
 	\end{column}
 \end{columns}
+\end{comment}
 
+\begin{frame}[fragile]
+\frametitle{Example: Isabelle \footnote{\tiny{source: 
+			\url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
+\begin{onlyenv}<1>
+\begin{tabular}{l}	
+	\includegraphics[scale=0.3]{isabelle_example/submon_hr.png}\\		
+	\includegraphics[scale=0.3]{isabelle_example/subgroup_hr.png}
+\end{tabular}	
+\end{onlyenv}		
+\begin{onlyenv}<2>
+\begin{tabular}{l}	
+	\includegraphics[scale=0.2]{isabelle_example/prod_hr.png}\\		
+	\includegraphics[scale=0.2]{isabelle_example/prod_mon_hr.png}\\
+	\includegraphics[scale=0.2]{isabelle_example/prod_group_hr.png}
+\end{tabular}	
+\end{onlyenv}		
+
+\end{frame}
+
+\begin{comment}
 \frametitle{Example: Isabelle \footnote{\tiny{source: 
 \url{https://isabelle.in.tum.de/dist/library/HOL/HOL-Algebra/index.html}}}}
 \scriptsize
@@ -215,7 +243,7 @@ one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
 \end{lstlisting}
 \lstinputlisting[language=Isar, firstline=711, lastline=713]{isabelle_example/Group.thy}
 \lstinputlisting[language=Isar, firstline=723, lastline=725]{isabelle_example/Group.thy}
-\end{frame}
+\end{comment}
 
 \subsection{Other Structures}
 \begin{frame}
