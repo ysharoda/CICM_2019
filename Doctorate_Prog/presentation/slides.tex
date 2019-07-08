@@ -60,8 +60,8 @@ Do you find yourself going through \\
 		\begin{lstlisting}[mathescape]
 theory Foo { 
   U : type 
-  s1 : U 
-  s2 : U $\to$ U $\to$ U
+  e : U 
+  bin-op : U $\to$ U $\to$ U
 }
 		\end{lstlisting}
 \pause		
@@ -69,9 +69,10 @@ theory Foo {
 theory FooHom{
   f1 , f2 : Foo 
   h : f1.U $\rightarrow$ f2.U 
-  pres-s1 : h f1.s1 = f2.s1  
-  pres-s2 : h (f1.s2 x y) 
-            = f2.s2 (h x) (h y)
+  pres-e : h f1.e = f2.e  
+  pres-bin-op : 
+      h (f1.bin-op x y) 
+      = f2.bin-op (h x) (h y)
 }
 		\end{lstlisting}
 	\end{column}
@@ -81,8 +82,8 @@ theory FooHom{
 	 	\begin{lstlisting}
 theory Bar {
   U : type 
-  s1 : U 
-  s2 : U $\rightarrow$ U 
+  e : U 
+  un-op : U $\rightarrow$ U 
 }
 	 	\end{lstlisting}
 \pause
@@ -90,40 +91,17 @@ theory Bar {
 theory BarHom { 
   b1, b2 : Bar 
   h : b1.U $\rightarrow$ b2.U 
-  pres-s1 : h s1 = s2  
-  pres-s2 : h (b1.s2 x) 
-            = b2.s2 (h x)
+  pres-e : h b1.e = b2.e  
+  pres-un-op : 
+      h (b1.un-op x) 
+      = b2.un-op (h x)
 }
 		\end{lstlisting}
 	\end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Defining Homomorphism}
-\begin{columns}
-\scriptsize
-\begin{column}{0.45\textwidth}
-		\lstset{emph={generates Hom} ,emphstyle=\fbox}	
-	\begin{lstlisting}
-theory Foo { 
-  U : type 
-  s1 : U 
-  s2 : U $\to$ U $\to$ U
-} $\hilight{generates Hom}$
-	\end{lstlisting}
-\end{column}
-\begin{column}{0.45\textwidth}
-	\begin{lstlisting}
-theory Bar {
-  U : type 
-  s1 : U 
-  s2 : U $\rightarrow$ U 
-} $\hilight{generates Hom}$
-	\end{lstlisting}
-\end{column}
-\end{columns}
-\end{frame}
+
 %\frametitle{Example: Agda\footnote{code from: 
 %\url{https://github.com/JacquesCarette/TheoriesAndDataStructures/}}}
 %Define the category of group
@@ -261,18 +239,56 @@ one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
 \
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Defining Homomorphism}
+\begin{columns}
+	\scriptsize
+	\begin{column}{0.45\textwidth}
+		\lstset{emph={generates Hom} ,emphstyle=\fbox}	
+		\begin{lstlisting}
+theory Foo { 
+  U : type 
+  e : U 
+  bin_op : U $\to$ U $\to$ U
+} $\hilight{generates Hom}$
+		\end{lstlisting}
+	\end{column}
+	\begin{column}{0.45\textwidth}
+		\begin{lstlisting}
+theory Bar {
+  U : type 
+  e : U 
+  un_op : U $\rightarrow$ U 
+} $\hilight{generates Hom}$
+		\end{lstlisting}
+	\end{column}
+\end{columns}
+\end{frame}
+
 \begin{frame}
 \frametitle{Why is that Useful?}
+\pause
 \begin{itemize}
 \item Avoid Boilerplate 
 \begin{itemize}
-	\item Distracts user from original task 
-	\item Error-prone and not reusable 
-	\item Does not communicate information about the structure 
+	\item Distracting
+	\item Error-prone 
+	\item Not reusable 
+	\item Not useful 
 \end{itemize}
-\item Reduce the amount of labor associated with building rich libraries 
+\pause
+\item More rich libraries with less labor
 \end{itemize}
 \end{frame}
+
+\begin{comment}
+\frametitle{Challenges}
+\begin{itemize}
+	\item Deciding what information is useful to generate. 
+	\item Figuring out the minimal logic needed for each structure. 
+	\item Creating the right morphisms.  
+\end{itemize}
+\end{comment}
 
 \begin{comment}[fragile]
 	\begin{center}
@@ -296,13 +312,15 @@ one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
 \section{Algebraic Theories}
 \begin{frame}[fragile]
 \frametitle{Algebraic Theories}
+\pause
 \begin{itemize}
-\item well-typed dependent record. It contains	
+\item Well-typed dependent record. It contains	
 	   \begin{itemize}
 	   	\item sorts
 	   	\item typed symbols
 	   	\item axioms 
 	   \end{itemize}
+\scriptsize 
 \begin{figure}[ht]
 	\begin{proofrules}
 		\[ \ \justifies \varnothing \ \wfctx \]
@@ -313,8 +331,6 @@ one = (1$\textsubscript{G}$, 1$\textsubscript{H}$ $\rrparenthesis$"
 %	\caption{Formation rules for contexts}
 	\label{fig:ctx}
 \end{figure}   
-   \pause
-   \item How are they presented in formal systems?
 \end{itemize}
 \end{frame}
 \begin{comment}
@@ -359,6 +375,7 @@ Third formation rule
 We use MMT as a framework to abstract over syntax of theory presentations 
 \begin{itemize}
 	\item Platform Independent 
+\pause	
 	\item Simple Module System
 	\item Example: 
 \scriptsize	
@@ -388,6 +405,7 @@ Manipulating OmDoc terms
 		MathScheme & MMT & Agda & Lean \\ [1ex]
 		Coq & Haskell &  Isabelle & Idris 
 	\end{tabular}}
+\pause
 \normalsize
 	\item Data Collection 
 	\begin{itemize}
@@ -395,11 +413,13 @@ Manipulating OmDoc terms
 		\item Module System 
 		\item Supported Features 
 	\end{itemize}
+\pause
 	\item Data Analysis 
 	\begin{itemize}
 		\item Commonlities, Differences and Dependencies 
 	\end{itemize}
 \end{itemize}
+\pause
 \begin{tikzpicture}
 \draw (0,0) node [stuff_fill] {Result: Feature Model};
 \end{tikzpicture}
@@ -412,11 +432,14 @@ Consists of
 	\begin{itemize}
 		\item Mandatory, Alternative or Optional 
 	\end{itemize}
+\pause
 	\item Feature Definition
+\pause
 	\item Composition Rules
 	\begin{itemize}
 		\item Valid/Invalid Feature Combinations 
 	\end{itemize}
+\pause
 	\item Rationale
 	\begin{itemize}
 		\item Reasons for choosing / not choosing a feature
@@ -480,6 +503,26 @@ RightUnital := Mixin LeftUnital {} Flip {}
 	Magma \arrow[d,mapsto] \arrow[r,hook] & PointedMagma \arrow[d,hook] \arrow[dr,hook]& \\
 	AdditiveMagma & LeftUnital \arrow{r}{\text{Flip}} & RightUnital \\
 \end{tikzcd}	
+\end{frame}
+
+\begin{frame}
+\frametitle{Timeline}
+\begin{itemize}
+	\item (May - Sept 2019)
+	\begin{itemize}
+		\item Finalize MathScheme Library Translation 
+	\end{itemize}
+	\item (October - Dec 2019)
+	\begin{itemize}
+		\item Automatic generation of constructions from abstract 
+		representation of a theory
+	\end{itemize}
+	\item (Jan - April 2020)
+	\begin{itemize}
+		\item Feature Modelling of Formal Systems. 
+		\item Implementing the code generators 
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
 \section{Conclusion}
